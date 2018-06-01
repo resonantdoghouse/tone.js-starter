@@ -1,0 +1,17 @@
+$base-size: 10px;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $base-size;
+}
+
+body {
+  font-family: "Press Start 2P", cursive;
+  cursor: pointer;
+  position: relative;
+  background: whitesmoke;
+  min-height: 100vh;
+}
