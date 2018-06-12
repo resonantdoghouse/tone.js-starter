@@ -1,7 +1,7 @@
 {
-  "name": "css-dino",
+  "name": "Tone.js-starter",
   "version": "1.0.0",
-  "description": "A CSS Dino & some Jurassic Web Audio",
+  "description": "A Tone.js starter for making music with WebAudio",
   "main": "gulpfile.js",
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/resonantdoghouse/jurassic-web.git"
+    "url": "git+https://github.com/resonantdoghouse/tone.js-starter.git"
   },
   "keywords": [
     "web-audio",
@@ -31,7 +31,10 @@
   "author": "Jim Bennett",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/resonantdoghouse/jurassic-web/issues"
+    "url": "https://github.com/resonantdoghouse/tone.js-starter/issues"
   },
-  "homepage": "https://github.com/resonantdoghouse/jurassic-web#readme"
+  "homepage": "https://github.com/resonantdoghouse/tone.js-starter#readme",
+  "dependencies": {
+    "tone": "^0.12.80"
+  }
 }
