@@ -1,4 +1,20 @@
 (function() {
+  const kickBox = document.querySelector('.kickbox');
+  const kickBoxColor = kickBox.style.backgroundColor;
+
+  const snareBox = document.querySelector('.snarebox');
+  const snareBoxColor = snareBox.style.backgroundColor;
+
+  const highHatBox = document.querySelector('.highhatbox');
+  const highHatBoxColor = highHatBox.style.backgroundColor;
+
+
+  const bassBox = document.querySelector('.bassbox');
+  const bassBoxColor = bassBox.style.backgroundColor;
+
+  const pizzBox = document.querySelector('.pizzbox');
+  const pizzBoxColor = pizzBox.style.backgroundColor;
+
   const bassNotes = [
     ['F#3', 'F#3'],
     null,
@@ -118,12 +134,13 @@
     ['G3', 'G3']
   ];
   const kickNotes = ['C3', null, null, null, ['C3', 'C3'], null, null, null];
+
   /**
    * Effects
    */
-  // let reverb1 = new Tone.Freeverb(0.3, 10000).receive('reverb').toMaster();
-  // let reverb2 = new Tone.Freeverb(0.4, 10000).receive('reverb').toMaster();
-  // let reverb3 = new Tone.Freeverb(0.8, 15000).receive('reverb').toMaster();
+  const reverb1 = new Tone.Freeverb(0.3, 10000).receive('reverb').toMaster();
+  const reverb2 = new Tone.Freeverb(0.4, 10000).receive('reverb').toMaster();
+  const reverb3 = new Tone.Freeverb(0.8, 15000).receive('reverb').toMaster();
 
   /**
    * Delay
@@ -134,39 +151,28 @@
     wet: 0.3
   }).toMaster();
 
-  const pizzSynth = new Tone.MonoSynth({
-    oscillator: {
-      type: 'sawtooth'
-    },
-    filter: {
-      Q: 3,
-      type: 'highpass',
-      rolloff: -12
-    },
-    envelope: {
-      attack: 0.01,
-      decay: 0.3,
-      sustain: 0,
-      release: 0.9
-    },
-    filterEnvelope: {
-      attack: 0.01,
-      decay: 0.1,
-      sustain: 0,
-      release: 0.1,
-      baseFrequency: 800,
-      octaves: -1.2
-    }
-  }).connect(feedbackDelay);
+  /**
+   * Master FX
+   */
+  //some overall compression to keep the levels in check
+  const masterCompressor = new Tone.Compressor({
+    threshold: -12,
+    ratio: 12,
+    attack: 0,
+    release: 0.3
+  });
 
-  const pizzPart = new Tone.Sequence(
-    function(time, note) {
-      pizzSynth.triggerAttackRelease(note, '10hz', time);
-    },
-    pizzNotes,
-    '16n'
-  ).start();
+  //give a little boost to the lows
+  const lowBump = new Tone.Filter({
+    type: 'lowshelf',
+    frequency: 260,
+    Q: 1,
+    gain: 16
+  });
 
+  /**
+   * Bass
+   */
   const bassSynth = new Tone.MonoSynth({
     oscillator: {
       type: 'fmsquare5',
@@ -195,14 +201,6 @@
     }
   }).toMaster();
 
-  const bassPart = new Tone.Sequence(
-    function(time, note) {
-      bassSynth.triggerAttackRelease(note, '10hz', time);
-    },
-    bassNotes,
-    '16n'
-  ).start();
-
   /**
    * Drums
    */
@@ -221,8 +219,60 @@
     }
   ).toMaster();
 
+  /**
+   * Pizz
+   */
+  const pizzSynth = new Tone.MonoSynth({
+    oscillator: {
+      type: 'sawtooth'
+    },
+    filter: {
+      Q: 3,
+      type: 'highpass',
+      rolloff: -12
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.3,
+      sustain: 0,
+      release: 0.9
+    },
+    filterEnvelope: {
+      attack: 0.01,
+      decay: 0.1,
+      sustain: 0,
+      release: 0.1,
+      baseFrequency: 800,
+      octaves: -1.2
+    }
+  }).connect(feedbackDelay);
+
+  /**
+   * Sequence Parts
+   * ---------------------------------------------------------------------------
+   */
+
+  const pizzPart = new Tone.Sequence(
+    function(time, note) {
+      changeColor(pizzBox);
+      pizzSynth.triggerAttackRelease(note, '10hz', time);
+    },
+    pizzNotes,
+    '16n'
+  ).start();
+
+  const bassPart = new Tone.Sequence(
+    function(time, note) {
+      changeColor(bassBox);
+      bassSynth.triggerAttackRelease(note, '10hz', time);
+    },
+    bassNotes,
+    '16n'
+  ).start();
+
   const highHatPart = new Tone.Sequence(
     function(time, note) {
+      changeColor(highHatBox);
       drums505.triggerAttackRelease(note, '4n', time);
     },
     highHatNotes,
@@ -231,6 +281,7 @@
 
   const snarePart = new Tone.Sequence(
     function(time, note) {
+      changeColor(snareBox);
       drums505.triggerAttackRelease('D4', '4n', time);
     },
     ['D4'],
@@ -239,12 +290,22 @@
 
   const kickPart = new Tone.Sequence(
     function(time, note) {
-      console.log(note);
+      changeColor(kickBox);
       drums505.triggerAttackRelease('C3', '4n', time);
     },
     kickNotes,
     '16n'
   ).start('2m');
+
+  function changeColor(elem) {
+    elem.style.backgroundColor = 'white';
+    setTimeout(function() {
+      elem.style.backgroundColor = kickBoxColor;
+    }, 100);
+  }
+  //route everything through the filter
+  //and compressor before going to the speakers
+  Tone.Master.chain(lowBump, masterCompressor);
 
   /**
    * Tone Transport
@@ -259,6 +320,7 @@
    */
   document.querySelector('body').addEventListener('click', function() {
     // Tone.Transport.stop();
+    Tone.Master.mute = false;
     Tone.Transport.start('+0.1');
   });
 })();

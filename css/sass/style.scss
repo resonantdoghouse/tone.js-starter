@@ -1,5 +1,8 @@
 $base-size: 10px;
 
+$color--light: #db90f3;
+$color--dark: #502f5f;
+
 * {
   box-sizing: border-box;
 }
@@ -12,11 +15,34 @@ body {
   font-family: "Press Start 2P", cursive;
   cursor: pointer;
   position: relative;
-  background: whitesmoke;
+  background: $color--dark;
   min-height: 100vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: $color--light;
+}
+
+.boxes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  // transition: 0.1s;
+  background: $color--light;
+}
+.kickbox {
+  background: $color--light;
+}
+.bassbox {
+  background: $color--light;
 }
