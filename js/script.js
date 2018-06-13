@@ -99,7 +99,25 @@
     ['A#3', 'B3'],
     ['B3', 'B3']
   ];
-
+  const highHatNotes = [
+    ['G3', null],
+    ['G3', null],
+    [null, 'G3'],
+    [null, ['A3', null]],
+    ['G3', null],
+    ['G3', 'G3'],
+    ['G3', 'G3'],
+    ['G3', 'G3'],
+    ['G3', null],
+    ['G3', null],
+    [null, 'G3'],
+    [null, ['A3', null]],
+    ['G3', null],
+    ['G3', 'G3'],
+    ['G3', 'G3'],
+    ['G3', 'G3']
+  ];
+  const kickNotes = ['C3', null, null, null, ['C3', 'C3'], null, null, null];
   /**
    * Effects
    */
@@ -116,7 +134,7 @@
     wet: 0.3
   }).toMaster();
 
-  var pizzSynth = new Tone.MonoSynth({
+  const pizzSynth = new Tone.MonoSynth({
     oscillator: {
       type: 'sawtooth'
     },
@@ -141,7 +159,7 @@
     }
   }).connect(feedbackDelay);
 
-  var pizzPart = new Tone.Sequence(
+  const pizzPart = new Tone.Sequence(
     function(time, note) {
       pizzSynth.triggerAttackRelease(note, '10hz', time);
     },
@@ -149,7 +167,7 @@
     '16n'
   ).start();
 
-  var bassSynth = new Tone.MonoSynth({
+  const bassSynth = new Tone.MonoSynth({
     oscillator: {
       type: 'fmsquare5',
       modulationType: 'triangle',
@@ -177,7 +195,7 @@
     }
   }).toMaster();
 
-  var bassPart = new Tone.Sequence(
+  const bassPart = new Tone.Sequence(
     function(time, note) {
       bassSynth.triggerAttackRelease(note, '10hz', time);
     },
@@ -188,7 +206,7 @@
   /**
    * Drums
    */
-  let drums505 = new Tone.Sampler(
+  const drums505 = new Tone.Sampler(
     {
       D4: 'snare.[mp3|ogg]',
       C3: 'kick.[mp3|ogg]',
@@ -203,32 +221,15 @@
     }
   ).toMaster();
 
-  var highHatPart = new Tone.Sequence(
+  const highHatPart = new Tone.Sequence(
     function(time, note) {
       drums505.triggerAttackRelease(note, '4n', time);
     },
-    [
-      ['G3', null],
-      ['G3', null],
-      [null, 'G3'],
-      [null, ['A3', null]],
-      ['G3', null],
-      ['G3', 'G3'],
-      ['G3', 'G3'],
-      ['G3', 'G3'],
-      ['G3', null],
-      ['G3', null],
-      [null, 'G3'],
-      [null, ['A3', null]],
-      ['G3', null],
-      ['G3', 'G3'],
-      ['G3', 'G3'],
-      ['G3', 'G3']
-    ],
+    highHatNotes,
     '16n'
   ).start('2m');
 
-  var snarePart = new Tone.Sequence(
+  const snarePart = new Tone.Sequence(
     function(time, note) {
       drums505.triggerAttackRelease('D4', '4n', time);
     },
@@ -236,12 +237,12 @@
     '4n'
   ).start('2:0:2');
 
-  let kickPart = new Tone.Sequence(
+  const kickPart = new Tone.Sequence(
     function(time, note) {
       console.log(note);
       drums505.triggerAttackRelease('C3', '4n', time);
     },
-    ['C3', null, null, null, ['C3', 'C3'], null, null, null],
+    kickNotes,
     '16n'
   ).start('2m');
 
