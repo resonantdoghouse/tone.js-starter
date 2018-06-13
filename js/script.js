@@ -1,160 +1,263 @@
 (function() {
+  const bassNotes = [
+    ['F#3', 'F#3'],
+    null,
+    ['F#3', 'F#3'],
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['E3', 'E3'],
+    null,
+    ['E3', 'E3'],
+    null,
+    ['E3', 'E3'],
+    null,
+    null,
+    null,
+    ['E3', 'E3'],
+    null,
+    null,
+    null,
+    ['E3', 'E3'],
+    null,
+    null,
+    null,
+    ['F#3', 'F#3'],
+    null,
+    ['F#3', 'F#3'],
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['F#3', 'F#3'],
+    null,
+    null,
+    null,
+    ['G3', 'G3'],
+    null,
+    ['G3', 'G3'],
+    null,
+    ['G3', 'G3'],
+    null,
+    null,
+    null,
+    ['G3', 'G3'],
+    null,
+    null,
+    null,
+    ['G3', 'G3'],
+    null,
+    null,
+    null
+  ];
+  const pizzNotes = [
+    'C#4',
+    ['D4', 'C#4'],
+    ['C#4', 'D4'],
+    ['C#4', 'C#4'],
+    ['D4', 'C#4'],
+    ['C#4', 'C#4'],
+    ['B#3', 'C#4'],
+    ['C#4', 'C#4'],
+    'C#4',
+    ['D4', 'C#4'],
+    ['C#4', 'D4'],
+    ['C#4', 'C#4'],
+    ['D4', 'C#4'],
+    ['C#4', 'C#4'],
+    ['B#3', 'C#4'],
+    ['C#4', 'C#4'],
+    'B3',
+    ['B#3', 'B3'],
+    ['B3', 'B#3'],
+    ['B3', 'B3'],
+    ['B#3', 'B3'],
+    ['B3', 'B3'],
+    ['A#3', 'B3'],
+    ['B3', 'B3'],
+    'B3',
+    ['B#3', 'B3'],
+    ['B3', 'B#3'],
+    ['B3', 'B3'],
+    ['B#3', 'B3'],
+    ['B3', 'B3'],
+    ['A#3', 'B3'],
+    ['B3', 'B3']
+  ];
+
   /**
    * Effects
    */
-  let reverb1 = new Tone.Freeverb(0.3, 10000).receive("reverb").toMaster();
-  let reverb2 = new Tone.Freeverb(0.4, 10000).receive("reverb").toMaster();
-  let reverb3 = new Tone.Freeverb(0.8, 15000).receive("reverb").toMaster();
+  // let reverb1 = new Tone.Freeverb(0.3, 10000).receive('reverb').toMaster();
+  // let reverb2 = new Tone.Freeverb(0.4, 10000).receive('reverb').toMaster();
+  // let reverb3 = new Tone.Freeverb(0.8, 15000).receive('reverb').toMaster();
 
   /**
    * Delay
    */
   let feedbackDelay = new Tone.PingPongDelay({
-    delayTime: "1hz",
-    feedback: 0.01,
-    wet: 0.1
+    delayTime: '16n',
+    feedback: 0.3,
+    wet: 0.3
   }).toMaster();
 
-  // var fmSynth = new Tone.FMSynth({
-  //   harmonicity: 3.01,
-  //   modulationIndex: 14,
-  //   oscillator: {
-  //     type: 'triangle'
-  //   },
-  //   envelope: {
-  //     attack: 0.2,
-  //     decay: 0.3,
-  //     sustain: 0.1,
-  //     release: 1.2
-  //   },
-  //   modulation: {
-  //     type: 'square'
-  //   },
-  //   modulationEnvelope: {
-  //     attack: 0.01,
-  //     decay: 0.5,
-  //     sustain: 0.2,
-  //     release: 0.1
-  //   }
-  // }).toMaster();
+  var pizzSynth = new Tone.MonoSynth({
+    oscillator: {
+      type: 'sawtooth'
+    },
+    filter: {
+      Q: 3,
+      type: 'highpass',
+      rolloff: -12
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.3,
+      sustain: 0,
+      release: 0.9
+    },
+    filterEnvelope: {
+      attack: 0.01,
+      decay: 0.1,
+      sustain: 0,
+      release: 0.1,
+      baseFrequency: 800,
+      octaves: -1.2
+    }
+  }).connect(feedbackDelay);
 
-  // var synthPart = new Tone.Sequence(
-  //   function(time, note) {
-  //     fmSynth.triggerAttackRelease(note, '15hz', time);
-  //   },
-  //   [[['A1'], ['B2']], [['C1'], ['C2']], ['D3'],[['A2'], ['F2']], [['D1'], ['D2']], ['G3']],
-  //   '8n'
-  // ).start(0);
+  var pizzPart = new Tone.Sequence(
+    function(time, note) {
+      pizzSynth.triggerAttackRelease(note, '10hz', time);
+    },
+    pizzNotes,
+    '16n'
+  ).start();
 
-  // var fmSynth2 = new Tone.FMSynth({
-  //   harmonicity: 8,
-  //   modulationIndex: 2,
-  //   oscillator: {
-  //     type: 'sine'
-  //   },
-  //   envelope: {
-  //     attack: 0.001,
-  //     decay: 2,
-  //     sustain: 0.1,
-  //     release: 2
-  //   },
-  //   modulation: {
-  //     type: 'square'
-  //   },
-  //   modulationEnvelope: {
-  //     attack: 0.002,
-  //     decay: 0.2,
-  //     sustain: 0,
-  //     release: 0.2
-  //   }
-  // }).toMaster();
+  var bassSynth = new Tone.MonoSynth({
+    oscillator: {
+      type: 'fmsquare5',
+      modulationType: 'triangle',
+      modulationIndex: 2,
+      harmonicity: 0.501
+    },
+    filter: {
+      Q: 1,
+      type: 'lowpass',
+      rolloff: -24
+    },
+    envelope: {
+      attack: 0.01,
+      decay: 0.1,
+      sustain: 0.4,
+      release: 2
+    },
+    filterEnvelope: {
+      attack: 0.01,
+      decay: 0.1,
+      sustain: 0.8,
+      release: 1.5,
+      baseFrequency: 50,
+      octaves: 4.4
+    }
+  }).toMaster();
 
-  // var synthPart2 = new Tone.Sequence(
-  //   function(time, note) {
-  //     fmSynth2.triggerAttackRelease(note, '10hz', time);
-  //   },
-  //   ['C4', [['F3'], ['C3']], [['B1'], ['A1']], ['C1']],
-  //   '8n'
-  // ).start(0);
+  var bassPart = new Tone.Sequence(
+    function(time, note) {
+      bassSynth.triggerAttackRelease(note, '10hz', time);
+    },
+    bassNotes,
+    '16n'
+  ).start();
 
   /**
    * Drums
    */
   let drums505 = new Tone.Sampler(
     {
-      D4: "snare.[mp3|ogg]",
-      A1: "kick.[mp3|ogg]"
+      D4: 'snare.[mp3|ogg]',
+      C3: 'kick.[mp3|ogg]',
+      G3: 'hh.[mp3|ogg]',
+      A3: 'hho.[mp3|ogg]'
     },
     {
-      volume: -15,
+      volume: 5,
       release: 1,
       baseUrl:
-        "https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/"
+        'https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/'
     }
   ).toMaster();
 
-  /**
-   * Snare Sequence
-   * Rhythm to YYZ :)
-   */
-  var snarePart = new Tone.Sequence(
+  var highHatPart = new Tone.Sequence(
     function(time, note) {
-      drums505.triggerAttackRelease("D4", "4n", time);
+      drums505.triggerAttackRelease(note, '4n', time);
     },
     [
-      "D4",
-      ["D4", "D4"],
-      [null, "D4"],
-      [null, "D4"],
-      [null, "D4"],
-      "D4",
-      "D4",
-      "D4",
-      "D4",
-      ["D4", "D4"]
+      ['G3', null],
+      ['G3', null],
+      [null, 'G3'],
+      [null, ['A3', null]],
+      ['G3', null],
+      ['G3', 'G3'],
+      ['G3', 'G3'],
+      ['G3', 'G3'],
+      ['G3', null],
+      ['G3', null],
+      [null, 'G3'],
+      [null, ['A3', null]],
+      ['G3', null],
+      ['G3', 'G3'],
+      ['G3', 'G3'],
+      ['G3', 'G3']
     ],
-    "16n"
-  ).start(0);
+    '16n'
+  ).start('2m');
 
-  // Kick Sound
-  // let kick = new Tone.MembraneSynth({
-  //   envelope: {
-  //     sustain: 0,
-  //     attack: 0.02,
-  //     decay: 0.8
-  //   },
-  //   volume: -10,
-  //   octaves: 10
-  // }).toMaster();
+  var snarePart = new Tone.Sequence(
+    function(time, note) {
+      drums505.triggerAttackRelease('D4', '4n', time);
+    },
+    ['D4'],
+    '4n'
+  ).start('2:0:2');
 
-  // // Kick Loop
-  // let kickPart = new Tone.Loop(function(time) {
-  //   kick.triggerAttackRelease('C1', '10hz', time);
-  // }, '2n').start(0);
+  let kickPart = new Tone.Sequence(
+    function(time, note) {
+      console.log(note);
+      drums505.triggerAttackRelease('C3', '4n', time);
+    },
+    ['C3', null, null, null, ['C3', 'C3'], null, null, null],
+    '16n'
+  ).start('2m');
 
   /**
-   * Setting up a basic sequence
-   * https://tonejs.github.io/docs/r12/Sequence
+   * Tone Transport
    */
-  // var seq = new Tone.Sequence(
-  //   function(time, note) {
-  //     console.log(note);
-  //     // 4n means quater notes however you can subdivide the rhythms
-  //   },
-  //   ['C4', 'E4', [['G4'], ['A4']], ['C3']],
-  //   '4n'
-  // ).start(0);
-
   Tone.Transport.bpm.value = 60;
   Tone.Transport.swing = 0;
-  Tone.Transport.swingSubdivision = "16n";
-  // Tone.Transport.loopStart  = 0;
+  Tone.Transport.swingSubdivision = '16n';
+  Tone.Transport.loopStart = 0;
 
   /**
    * Play Controls
    */
-  document.querySelector("body").addEventListener("click", function() {
+  document.querySelector('body').addEventListener('click', function() {
     // Tone.Transport.stop();
-    Tone.Transport.start("+0.1");
+    Tone.Transport.start('+0.1');
   });
 })();
