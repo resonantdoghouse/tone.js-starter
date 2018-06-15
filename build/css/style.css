@@ -1,3 +1,6 @@
+:root {
+  --accent-color: rgb(245, 224, 252); }
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
@@ -9,7 +12,7 @@ body {
   font-family: "Press Start 2P", cursive;
   cursor: pointer;
   position: relative;
-  background: #502f5f;
+  background: #502F5F;
   min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -24,7 +27,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #db90f3; }
+  color: #B278C6; }
 
 .boxes {
   display: -webkit-box;
@@ -49,10 +52,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   color: black;
-  background: #db90f3; }
-
-.kickbox {
-  background: #db90f3; }
-
-.bassbox {
-  background: #db90f3; }
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+  background: #B278C6; }

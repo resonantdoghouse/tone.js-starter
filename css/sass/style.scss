@@ -1,7 +1,11 @@
 $base-size: 10px;
 
-$color--light: #db90f3;
-$color--dark: #502f5f;
+$color--light: #B278C6;
+$color--dark: #502F5F;
+
+:root {
+  --accent-color: rgb(245, 224, 252);
+}
 
 * {
   box-sizing: border-box;
@@ -37,12 +41,6 @@ body {
   justify-content: center;
   align-items: center;
   color: black;
-  // transition: 0.1s;
-  background: $color--light;
-}
-.kickbox {
-  background: $color--light;
-}
-.bassbox {
+  transition: 0.1s;
   background: $color--light;
 }

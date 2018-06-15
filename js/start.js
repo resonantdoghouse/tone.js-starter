@@ -1,4 +1,10 @@
 (function() {
+  'use strict';
+
+  let accentColor = getComputedStyle(document.body).getPropertyValue(
+    '--accent-color'
+  );
+
   const kickBox = document.querySelector('.kickbox');
   const kickBoxColor = kickBox.style.backgroundColor;
 
@@ -7,7 +13,6 @@
 
   const highHatBox = document.querySelector('.highhatbox');
   const highHatBoxColor = highHatBox.style.backgroundColor;
-
 
   const bassBox = document.querySelector('.bassbox');
   const bassBoxColor = bassBox.style.backgroundColor;
@@ -156,7 +161,7 @@
    */
   //some overall compression to keep the levels in check
   const masterCompressor = new Tone.Compressor({
-    threshold: -12,
+    threshold: -20,
     ratio: 12,
     attack: 0,
     release: 0.3
@@ -165,9 +170,9 @@
   //give a little boost to the lows
   const lowBump = new Tone.Filter({
     type: 'lowshelf',
-    frequency: 260,
+    frequency: 100,
     Q: 1,
-    gain: 16
+    gain: 10
   });
 
   /**
@@ -212,7 +217,7 @@
       A3: 'hho.[mp3|ogg]'
     },
     {
-      volume: 5,
+      volume: 10,
       release: 1,
       baseUrl:
         'https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/'
@@ -298,7 +303,7 @@
   ).start('2m');
 
   function changeColor(elem) {
-    elem.style.backgroundColor = 'white';
+    elem.style.backgroundColor = accentColor;
     setTimeout(function() {
       elem.style.backgroundColor = kickBoxColor;
     }, 100);
