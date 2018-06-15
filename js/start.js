@@ -220,7 +220,7 @@
       volume: 10,
       release: 1,
       baseUrl:
-        'https://raw.githubusercontent.com/Tonejs/Tone.js/dev/examples/audio/505/'
+        './audio/505/'
     }
   ).toMaster();
 
