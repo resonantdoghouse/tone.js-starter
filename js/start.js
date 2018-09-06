@@ -3,24 +3,20 @@
 
   let playing = false;
 
-  let accentColor = getComputedStyle(document.body).getPropertyValue(
+  const accentColor = getComputedStyle(document.body).getPropertyValue(
     "--accent-color"
   );
 
+  const defaultColor = getComputedStyle(document.body).getPropertyValue(
+    "--default-color"
+  );
+
+  // dom elements to animate
   const kickBox = document.querySelector(".kickbox");
-  const kickBoxColor = kickBox.style.backgroundColor;
-
   const snareBox = document.querySelector(".snarebox");
-  const snareBoxColor = snareBox.style.backgroundColor;
-
   const highHatBox = document.querySelector(".highhatbox");
-  const highHatBoxColor = highHatBox.style.backgroundColor;
-
   const bassBox = document.querySelector(".bassbox");
-  const bassBoxColor = bassBox.style.backgroundColor;
-
   const pizzBox = document.querySelector(".pizzbox");
-  const pizzBoxColor = pizzBox.style.backgroundColor;
 
   const bassNotes = [
     ["F#3", "F#3"],
@@ -255,9 +251,7 @@
 
   /**
    * Sequence Parts
-   * ---------------------------------------------------------------------------
    */
-
   const pizzPart = new Tone.Sequence(
     function(time, note) {
       changeColor(pizzBox);
@@ -265,7 +259,7 @@
     },
     pizzNotes,
     "16n"
-  ).start();
+  );
 
   const bassPart = new Tone.Sequence(
     function(time, note) {
@@ -274,7 +268,7 @@
     },
     bassNotes,
     "16n"
-  ).start();
+  );
 
   const highHatPart = new Tone.Sequence(
     function(time, note) {
@@ -283,7 +277,7 @@
     },
     highHatNotes,
     "16n"
-  ).start("2m");
+  );
 
   const snarePart = new Tone.Sequence(
     function(time, note) {
@@ -292,7 +286,7 @@
     },
     ["D4"],
     "4n"
-  ).start("2:0:2");
+  );
 
   const kickPart = new Tone.Sequence(
     function(time, note) {
@@ -301,16 +295,23 @@
     },
     kickNotes,
     "16n"
-  ).start("2m");
+  );
+
+  // starting time of sequences
+  pizzPart.start();
+  bassPart.start();
+  snarePart.start("2:0:2");
+  kickPart.start("2m");
+  highHatPart.start("2m");
 
   function changeColor(elem) {
     elem.style.backgroundColor = accentColor;
     setTimeout(function() {
-      elem.style.backgroundColor = kickBoxColor;
+      elem.style.backgroundColor = defaultColor;
     }, 100);
   }
-  //route everything through the filter
-  //and compressor before going to the speakers
+
+  //route everything through the filter & compressor before playing
   Tone.Master.chain(lowBump, masterCompressor);
 
   /**
@@ -326,7 +327,7 @@
    */
   document.querySelector("body").addEventListener("click", function() {
     // Tone.Transport.stop();
-    if(!playing){
+    if (!playing) {
       playing = true;
       Tone.Master.mute = false;
       Tone.Transport.start("+0.1");
@@ -335,5 +336,4 @@
       Tone.Transport.stop();
     }
   });
-
 })();

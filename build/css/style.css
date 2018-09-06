@@ -1,5 +1,6 @@
 :root {
-  --accent-color: rgb(245, 224, 252); }
+  --accent-color: rgb(245, 224, 252);
+  --default-color: #B278C6; }
 
 * {
   -webkit-box-sizing: border-box;
