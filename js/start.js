@@ -1,12 +1,15 @@
 (function() {
   "use strict";
 
+  // boolean
   let playing = false;
 
+  // CSS accent-color variable
   const accentColor = getComputedStyle(document.body).getPropertyValue(
     "--accent-color"
   );
 
+  // CSS default-color variable
   const defaultColor = getComputedStyle(document.body).getPropertyValue(
     "--default-color"
   );
@@ -18,6 +21,7 @@
   const bassBox = document.querySelector(".bassbox");
   const pizzBox = document.querySelector(".pizzbox");
 
+  // Bass notes array
   const bassNotes = [
     ["F#3", "F#3"],
     null,
@@ -84,6 +88,8 @@
     null,
     null
   ];
+
+  // Pizzicato notes array
   const pizzNotes = [
     "C#4",
     ["D4", "C#4"],
@@ -118,6 +124,8 @@
     ["A#3", "B3"],
     ["B3", "B3"]
   ];
+
+  // Hi-hat notes array
   const highHatNotes = [
     ["G3", null],
     ["G3", null],
@@ -136,6 +144,8 @@
     ["G3", "G3"],
     ["G3", "G3"]
   ];
+
+  // Kick notes array
   const kickNotes = ["C3", null, null, null, ["C3", "C3"], null, null, null];
 
   /**
@@ -261,6 +271,7 @@
     "16n"
   );
 
+  // Bass Sequence
   const bassPart = new Tone.Sequence(
     function(time, note) {
       changeColor(bassBox);
@@ -270,6 +281,7 @@
     "16n"
   );
 
+  // High-hat Sequence
   const highHatPart = new Tone.Sequence(
     function(time, note) {
       changeColor(highHatBox);
@@ -279,6 +291,7 @@
     "16n"
   );
 
+  // Snare Sequence
   const snarePart = new Tone.Sequence(
     function(time, note) {
       changeColor(snareBox);
@@ -288,6 +301,7 @@
     "4n"
   );
 
+  // Kick Sequence
   const kickPart = new Tone.Sequence(
     function(time, note) {
       changeColor(kickBox);
@@ -304,6 +318,9 @@
   kickPart.start("2m");
   highHatPart.start("2m");
 
+  /**
+   * Change background color of elements
+   */
   function changeColor(elem) {
     elem.style.backgroundColor = accentColor;
     setTimeout(function() {
@@ -311,11 +328,12 @@
     }, 100);
   }
 
-  //route everything through the filter & compressor before playing
+  // Route everything through the filter & compressor before playing
   Tone.Master.chain(lowBump, masterCompressor);
 
   /**
    * Tone Transport
+   * set the beats per minute, volume, swing feel etc...
    */
   Tone.Transport.bpm.value = 60;
   Tone.Transport.swing = 0;
@@ -336,4 +354,5 @@
       Tone.Transport.stop();
     }
   });
+
 })();
