@@ -29,3 +29,32 @@ Tone.js makes working with the Web Audio API much easier as it takes care of a l
 
 Yes the man the legend David Hasselhoff stared in this 80's TV show before baywatch and if you don't know the theme song you may have heard it sampled by artists like Busta Rhymes e.g. the song: ["Turn It Up (Remix) / Fire It Up"](https://youtu.be/YmHziduwBgI?t=1m5s)
 Many others have also sampled this icon TV theme, maybe you recognize [some of these songs](https://www.whosampled.com/Stu-Phillips/Theme-From-Knight-Rider/sampled/).
+
+But this projects purpose isn't about the history of sampled TV themes, it's about create music with JavaScript, so let's take a look at a few examples before jumping into the project code.
+
+Link to Tone.js through a [CDN](https://cdnjs.cloudflare.com/ajax/libs/tone/13.0.1/Tone.min.js)
+
+I recommend starting out by trying some of the examples in CodePen.
+
+You can create a kick sound by doing:
+```
+const synth = new Tone.MembraneSynth().toMaster();
+synth.triggerAttackRelease("C2", "8n");
+```
+
+Looping
+
+```
+const synth = new Tone.MembraneSynth().toMaster();
+
+var loop = new Tone.Loop(function(time) {
+  //triggered every eighth note.
+  console.log(time);
+  synth.triggerAttackRelease("C2", "8n");
+}, "8n").start(0);
+Tone.Transport.start();
+```
+
+### CodePen Links
+- Mebrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
+- Membrane Synth Loop [codepen](https://codepen.io/Onomicon/pen/rZYvdK)
