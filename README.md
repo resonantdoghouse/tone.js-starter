@@ -75,12 +75,15 @@ Tone.Sequence ( callback , events , subdivision )
 The callback is the function that runs for every note, Events are the notes in the sequence and subdivision is the overall timing of playback e.g. 4n = quarter notes. You can find more info about timing of playback and their values here: [Timing options](https://github.com/Tonejs/Tone.js/wiki/Time)
 
 Quarter notes are represented with `4n`
+
 ![Notation Quarter Notes](./img/notation-quarternotes.png)
 
 Eighth notes are represented with `8n`
+
 ![Notation Eighth Notes](./img/notation-eighthnotes.png)
 
 Sixteenth notes are represented with `16n`
+
 ![Notation Sixteenth Notes](./img/notation-sixteenthnotes.png)
 
 ```
