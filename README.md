@@ -17,7 +17,7 @@ Starter code to get up and running making music with Tone.js
 **This repo is intended to help others who are interested in making music with JavaScript.**
 The code provided is utilizing an excellent library called Tone.js
 
-Tone.js makes working with the Web Audio API much easier as it takes care of a lot of tedious tasks for you. If you've ever worked with the Web Audio API you may have some strong opinions but one thing you are likely to agree with is that it's a bit tricky to do anything meaningful, other than having a couple of oscillators genrate a tone. Tone.js has a ton of features but rather than me explaining all of them you can check out:  [tone.js examples](https://tonejs.github.io/examples/) and here are a few things people have made:  [Demos](https://tonejs.github.io/demos)
+Tone.js makes working with the Web Audio API much easier as it takes care of a lot of tedious tasks for you. If you've ever worked with the Web Audio API you may have some strong opinions but one thing you are likely to agree with is that it's a bit tricky to do anything meaningful, other than having a couple of oscillators generate a tone. Tone.js has a ton of features but rather than me explaining all of them you can check out:  [tone.js examples](https://tonejs.github.io/examples/) and here are a few things people have made:  [Demos](https://tonejs.github.io/demos)
 
 **What this repo contains** is a demo project which recreates the theme to the 80's TV show **Knight Rider** 
 
@@ -141,6 +141,48 @@ In the examples above the screenshots of notation are only showing rhythms with 
 [Designation by octaves](https://en.wikipedia.org/wiki/C_(musical_note)#Designation_by_octave)
 
 ---
+### Adding rests
+
+So you may have noticed how the notes we have in our sequence all play one after the other which is ok but what about if you need to have a break between notes. If we revisit our example above, specifically the notes, we can add a value of 'null' to indexes in our array to create a rest e.g.
+
+``` javascript
+const notes = ["C3", "Eb3", null, "G3", "Bb3"];
+```
+
+Notice that we also now have a 5 beat repeating pattern, pretty cool if you don't mind me saying so!
+
+Synth Sequence 2 [codepen](https://codepen.io/Onomicon/pen/MPYwXx)
+
+If we wanted to create the iconic note pattern to the mission impossible theme we could try
+
+``` javascript
+const notes = ["G2", null, "G2", "Bb2", "C3"];
+```
+
+Mission implausible [codepen](https://codepen.io/Onomicon/pen/gBbpBX)
+
+``` javascript
+const notes = ["G2", [null, "G2"], null, "Bb2", "C3"];
+```
+
+Mission improbable [codepen](https://codepen.io/Onomicon/pen/dgPoqO)
+
+``` javascript
+const notes = [
+    "G2",
+    [null, "G2"],
+    null,
+    "Bb2",
+    "C3",
+    "G2",
+    [null, "G2"],
+    null,
+    "F2",
+    "F#2"
+  ];
+```
+
+Mission Impossible :) [codepen](https://codepen.io/Onomicon/pen/aRzOPv)
 
 
 ## Additional Resources
