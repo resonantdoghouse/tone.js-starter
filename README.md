@@ -10,6 +10,8 @@ Starter code to get up and running making music with Tone.js
 - Install dependencies `npm install`
 - Run gulp tasks `gulp`, `gulp-sass`, & `gulp-scripts`
 
+---
+
 ## About
 
 **This repo is intended to help others who are interested in making music with JavaScript.**
@@ -28,15 +30,24 @@ But this projects purpose isn't about the history of sampled TV themes, it's abo
 
 **Link to Tone.js [CDN](https://cdnjs.cloudflare.com/ajax/libs/tone/13.0.1/Tone.min.js)**
 
-I recommend starting out by trying some of the examples in CodePen.
+---
 
-### Create a kick sound
+## Examples
+
+I recommend starting out by trying some of the examples in CodePen. 
+**Important! Turn your device volume down before opening the links.**
+
+### Creating a kick sound
 ```
 const synth = new Tone.MembraneSynth().toMaster();
 synth.triggerAttackRelease("C2", "8n");
 ```
 
-### Loop the kick sound
+Mebrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
+
+---
+
+### Looping the kick sound
 
 ```
 const synth = new Tone.MembraneSynth().toMaster();
@@ -46,10 +57,32 @@ var loop = new Tone.Loop(function(time) {
   console.log(time);
   synth.triggerAttackRelease("C2", "8n");
 }, "8n").start(0);
+
 Tone.Transport.start();
 ```
 
-### Create a sequence and pass in an array of notes
+Membrane Synth Loop [codepen](https://codepen.io/Onomicon/pen/rZYvdK)
+
+---
+
+### Creating a sequence with an array of notes
+
+You can create a sequence with Tone.Sequence and pass an array of note values to be played.
+
+Creating a new Sequence has the following options: Callback, events, and subdivision e.g.
+Tone.Sequence ( callback , events , subdivision )
+
+The callback is the function that runs for every note, Events are the notes in the sequence and subdivision is the overall timing of playback e.g. 4n = quarter notes. You can find more info about timing of playback and their values here: [Timing options](https://github.com/Tonejs/Tone.js/wiki/Time)
+
+Quarter notes are represented with `4n`
+![Notation Quarter Notes](./img/notation-quarternotes.png)
+
+Eighth notes are represented with `8n`
+![Notation Eighth Notes](./img/notation-eighthnotes.png)
+
+Sixteenth notes are represented with `16n`
+![Notation Sixteenth Notes](./img/notation-sixteenthnotes.png)
+
 ```
 const synth = new Tone.MembraneSynth().toMaster();
 const notes = ["C3", "Eb3", "G3", "Bb3"];
@@ -66,13 +99,10 @@ synthPart.start();
 Tone.Transport.start();
 ```
 
-## CodePen Links
+Synth Sequence [codepen](https://codepen.io/Onomicon/pen/dqZKbP?editors=0010)
 
-**Turn your device volume down before opening the links!**
+---
 
-- Mebrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
-- Membrane Synth Loop [codepen](https://codepen.io/Onomicon/pen/rZYvdK)
-- Synth Sequence [codepen](https://codepen.io/Onomicon/pen/dqZKbP?editors=0010)
 
 ## Additional Resources
 - [Tone.js Presets](http://tonejs.github.io/Presets/) 
