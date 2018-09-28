@@ -43,7 +43,7 @@ const synth = new Tone.MembraneSynth().toMaster();
 synth.triggerAttackRelease("C2", "8n");
 ```
 
-Mebrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
+Membrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
 
 *Note that if you didn't hear the kick sound in the codepen example turn your volume up slightly and refresh the page, the sound only plays once and on page load.*
 
@@ -119,6 +119,14 @@ Tone.Transport.start();
 ```
 
 Synth Sequence [codepen](https://codepen.io/Onomicon/pen/dqZKbP?editors=0010)
+
+---
+
+In the examples above the screenshots of notation are only showing rhythms with a fixed note of C. However if you've noticed that in the examples we have other notes and numbers after e.g. `C3`. The letters and numbers represent the note value e.g. `C` and the octave of the note, the overall pitch. If you've ever heard the term 'middle C' that is represented with `C4`, and it's called middle C due to it being roughly in the middle of the piano.
+
+![Piano notes](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Piano_Frequencies.svg/520px-Piano_Frequencies.svg.png)
+
+[Designation by octaves](https://en.wikipedia.org/wiki/C_(musical_note)#Designation_by_octave)
 
 ---
 
