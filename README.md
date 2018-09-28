@@ -45,9 +45,23 @@ synth.triggerAttackRelease("C2", "8n");
 
 Mebrane Synth Example [codepen](https://codepen.io/Onomicon/pen/MqOGEO?editors=1010)
 
+*Note that if you didn't hear the kick sound in the codepen example turn your volume up slightly and refresh the page, the sound only plays once and on page load.*
+
 ---
 
 ### Looping the kick sound
+
+We are going to get into creating a sequence in a few minutes however to create a simple repeating pattern you can use the Tone.Loop function.
+Tone.Loop takes two parameters which are `( callback , interval ) `.
+
+The callback is the function to run each time the loop repeats and in our example this is where we play a note using `synth.triggerAttackRelease`.
+
+The interval is the unit of time for the loop to repeat at. In this example the time is set to half notes using `2n`.
+
+Half note notation example: 
+
+![Notation Half Notes](./img/notation-halfnote.png)
+
 
 ```
 const synth = new Tone.MembraneSynth().toMaster();
@@ -62,6 +76,8 @@ Tone.Transport.start();
 ```
 
 Membrane Synth Loop [codepen](https://codepen.io/Onomicon/pen/rZYvdK)
+
+*No need to refresh the page here as we now have a loop that will continue to play*
 
 ---
 
