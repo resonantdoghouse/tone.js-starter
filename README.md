@@ -66,14 +66,17 @@ Half note notation example:
 
 
 ``` javascript
+// create a new synth
 const synth = new Tone.MembraneSynth().toMaster();
 
 var loop = new Tone.Loop(function(time) {
-  //triggered every eighth note.
+  // Run once per eighth note, 8n, & log the time
   console.log(time);
+  // trigger synth note
   synth.triggerAttackRelease("C2", "8n");
 }, "8n").start(0);
 
+// Start the transport which is the main timeline
 Tone.Transport.start();
 ```
 
@@ -119,9 +122,11 @@ const synthPart = new Tone.Sequence(
   "4n"
 );
 
-// start playing the synth
+// Setup the synth to be ready to play on beat 1
 synthPart.start();
-// start the transport which controls sequences
+// Note that if you pass a time into the start method you can specify when the synth part starts e.g. .start('8n') will start after 1 eighth note
+
+// start the transport which controls the main timeline
 Tone.Transport.start();
 ```
 
