@@ -38,8 +38,10 @@ I recommend starting out by trying some of the examples in CodePen.
 **Important! Turn your device volume down before opening the links.**
 
 ### Creating a kick sound
-```
+``` javascript
+// create a new synth and route the output to master
 const synth = new Tone.MembraneSynth().toMaster();
+// play a note with the synth we setup
 synth.triggerAttackRelease("C2", "8n");
 ```
 
@@ -63,7 +65,7 @@ Half note notation example:
 ![Notation Half Notes](./img/notation-halfnote.png)
 
 
-```
+``` javascript
 const synth = new Tone.MembraneSynth().toMaster();
 
 var loop = new Tone.Loop(function(time) {
@@ -92,20 +94,23 @@ The callback is the function that runs for every note, Events are the notes in t
 
 Quarter notes are represented with `4n`
 
-![Notation Quarter Notes](./img/notation-quarternotes.png)
+![Notation Quarter Notes](https://raw.githubusercontent.com/resonantdoghouse/tone.js-starter/master/img/notation-quarternotes.png)
 
 Eighth notes are represented with `8n`
 
-![Notation Eighth Notes](./img/notation-eighthnotes.png)
+![Notation Eighth Notes](https://raw.githubusercontent.com/resonantdoghouse/tone.js-starter/master/img/notation-eighthnotes.png)
 
 Sixteenth notes are represented with `16n`
 
-![Notation Sixteenth Notes](./img/notation-sixteenthnotes.png)
+![Notation Sixteenth Notes](https://raw.githubusercontent.com/resonantdoghouse/tone.js-starter/master/img/notation-sixteenthnotes.png)
 
-```
+``` javascript
+// create a synth
 const synth = new Tone.MembraneSynth().toMaster();
+// create an array of notes to be played
 const notes = ["C3", "Eb3", "G3", "Bb3"];
 
+// create a new sequence with the synth and notes
 const synthPart = new Tone.Sequence(
   function(time, note) {
     synth.triggerAttackRelease(note, "10hz", time);
@@ -114,7 +119,9 @@ const synthPart = new Tone.Sequence(
   "4n"
 );
 
+// start playing the synth
 synthPart.start();
+// start the transport which controls sequences
 Tone.Transport.start();
 ```
 
